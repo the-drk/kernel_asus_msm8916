@@ -4991,6 +4991,8 @@ static int __init kgsl_core_init(void)
 
 	kgsl_memfree_init();
 
+	kgsl_heap_init();
+
 	/** Eliot_Chen@asus.com add for [Touch boost GPU] begin **/
 	proc_create(ASUS_GPU_FILE, S_IRWXUGO, NULL, &create_asus_proc_file);
 	/** Eliot_Chen@asus.com add for [Touch boost GPU] end **/
