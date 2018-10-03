@@ -17,7 +17,7 @@ FINAL_ZIP=$KERNEL_NAME-$VERSION-$DATE-$DEVICE.zip
 defconfig=Z00L_defconfig
 
 # Dirs
-BASE_DIR=/media/hdd/kernel
+BASE_DIR=/media/hdd/aayush/kernel
 KERNEL_DIR=$BASE_DIR/msm8916
 ANYKERNEL_DIR=$KERNEL_DIR/AnyKernel2
 KERNEL_IMG=$KERNEL_DIR/arch/arm64/boot/Image.gz-dtb
@@ -25,7 +25,7 @@ UPLOAD_DIR=$BASE_DIR/$DEVICE
 
 # Export
 export ARCH=arm64
-export CROSS_COMPILE=/media/hdd/kernel/toolchain/gcc-arm-8.2-2018.11-x86_64-aarch64-linux-gnu/bin/aarch64-linux-gnu-
+export CROSS_COMPILE=/media/hdd/aayush/kernel/gcc-arm-8.3-2019.03-x86_64-aarch64-linux-gnu/bin/aarch64-linux-gnu-
 
 # Toolchain Used: https://developer.arm.com/open-source/gnu-toolchain/gnu-a/downloads
 
