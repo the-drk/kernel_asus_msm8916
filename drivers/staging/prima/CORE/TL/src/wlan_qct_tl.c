@@ -14493,37 +14493,6 @@ void WLANTL_SetARPFWDatapath(void * pvosGCtx, bool flag)
 
 }
 
-#ifdef WLAN_FEATURE_RMC
-VOS_STATUS WLANTL_RmcInit
-(
-    v_PVOID_t   pAdapter
-)
-{
-    WLANTL_CbType   *pTLCb = VOS_GET_TL_CB(pAdapter);
-    VOS_STATUS       status = VOS_STATUS_SUCCESS;
-    tANI_U8          count;
-
-    /*sanity check*/
-    if (NULL == pTLCb)
-    {
-        TLLOGE(VOS_TRACE(VOS_MODULE_ID_TL, VOS_TRACE_LEVEL_ERROR,
-            "Invalid TL handle"));
-        return VOS_STATUS_E_INVAL;
-    }
-
-    for ( count = 0; count < WLANTL_RMC_HASH_TABLE_SIZE; count++ )
-    {
-        pTLCb->rmcSession[count] = NULL;
-    }
-
-    vos_lock_init(&pTLCb->rmcLock);
-
-    pTLCb->multicastDuplicateDetectionEnabled = 1;
-    pTLCb->rmcDataPathEnabled = 0;
-
-    return status;
-}
-
 v_U16_t wlan_tl_get_sta_rx_rate(void *pvosGCtx, uint8_t ucSTAId)
 {
 	WLANTL_CbType*  pTLCb = NULL;
@@ -14560,6 +14529,66 @@ void WLANTL_GetSAPStaRSSi(void *pvosGCtx, uint8_t ucSTAId, s8 *rssi)
 
    *rssi = pTLCb->atlSTAClients[ucSTAId]->rssi_sample_sum / count;
 }
+
+void WLANTL_SetKeySeqCounter(void *pvosGCtx, u64 counter, uint8_t staid)
+{
+   WLANTL_CbType*  pTLCb = NULL;
+   uint8_t i;
+
+   pTLCb = VOS_GET_TL_CB(pvosGCtx);
+   if (NULL == pTLCb) {
+      TLLOGE(VOS_TRACE( VOS_MODULE_ID_TL, VOS_TRACE_LEVEL_ERROR,
+             "%s: Invalid TL pointer from pvosGCtx", __func__));
+      return;
+   }
+
+   if (WLANTL_STA_ID_INVALID(staid)) {
+      TLLOGE(VOS_TRACE( VOS_MODULE_ID_TL, VOS_TRACE_LEVEL_ERROR,
+             "%s: Invalid Sta id passed", __func__));
+      return;
+   }
+
+   if (NULL == pTLCb->atlSTAClients[staid]) {
+      TLLOGE(VOS_TRACE( VOS_MODULE_ID_TL, VOS_TRACE_LEVEL_ERROR,
+             "%s: Station context is NULL", __func__));
+      return;
+   }
+
+   for(i = 0; i < WLANTL_MAX_TID; i++)
+      pTLCb->atlSTAClients[staid]->ullReplayCounter[i] = counter;
+}
+
+#ifdef WLAN_FEATURE_RMC
+VOS_STATUS WLANTL_RmcInit
+(
+    v_PVOID_t   pAdapter
+)
+{
+    WLANTL_CbType   *pTLCb = VOS_GET_TL_CB(pAdapter);
+    VOS_STATUS       status = VOS_STATUS_SUCCESS;
+    tANI_U8          count;
+
+    /*sanity check*/
+    if (NULL == pTLCb)
+    {
+        TLLOGE(VOS_TRACE(VOS_MODULE_ID_TL, VOS_TRACE_LEVEL_ERROR,
+            "Invalid TL handle"));
+        return VOS_STATUS_E_INVAL;
+    }
+
+    for ( count = 0; count < WLANTL_RMC_HASH_TABLE_SIZE; count++ )
+    {
+        pTLCb->rmcSession[count] = NULL;
+    }
+
+    vos_lock_init(&pTLCb->rmcLock);
+
+    pTLCb->multicastDuplicateDetectionEnabled = 1;
+    pTLCb->rmcDataPathEnabled = 0;
+
+    return status;
+}
+
 
 VOS_STATUS WLANTL_RmcDeInit
 (
