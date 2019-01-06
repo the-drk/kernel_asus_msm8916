@@ -17,10 +17,11 @@ FINAL_ZIP=$KERNEL_NAME-$VERSION-$DATE-$DEVICE.zip
 defconfig=Z00T_defconfig
 
 # Dirs
-KERNEL_DIR=/media/hdd/kernel/msm8916
+BASE_DIR=/media/hdd/kernel
+KERNEL_DIR=$BASE_DIR/msm8916
 ANYKERNEL_DIR=$KERNEL_DIR/AnyKernel2
 KERNEL_IMG=$KERNEL_DIR/arch/arm64/boot/Image.gz-dtb
-UPLOAD_DIR=~/kernel/$DEVICE
+UPLOAD_DIR=$BASE_DIR/$DEVICE
 
 # Export
 export ARCH=arm64
