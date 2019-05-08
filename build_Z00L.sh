@@ -10,7 +10,7 @@ nocol='\033[0m'
 
 # Kernel details
 KERNEL_NAME="FireKernel"
-VERSION="r2.9"
+VERSION="r2.10"
 DATE=$(date +"%d-%m-%Y-%I-%M")
 DEVICE="Z00L"
 FINAL_ZIP=$KERNEL_NAME-$VERSION-$DATE-$DEVICE.zip
