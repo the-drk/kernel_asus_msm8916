@@ -145,7 +145,18 @@
  *
  *****************************************************************************/
 
-#if defined(_LINUX) || defined(__linux__)
+#if defined(__GNUC__) && !defined(__INTEL_COMPILER)
+#include <acpi/platform/acgcc.h>
+
+#elif defined(_MSC_VER)
+#include "acmsvc.h"
+
+#elif defined(__INTEL_COMPILER)
+#include <acpi/platform/acintel.h>
+
+#endif
+
+#if defined(_LINUX) || defined(__linux__) || defined(__KERNEL__)
 #include <acpi/platform/aclinux.h>
 
 #elif defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
