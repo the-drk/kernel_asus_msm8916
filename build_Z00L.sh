@@ -25,7 +25,7 @@ UPLOAD_DIR=$BASE_DIR/$DEVICE
 
 # Export
 export ARCH=arm64
-export CROSS_COMPILE=/media/hdd/aayush/kernel/gcc-arm-8.3-2019.03-x86_64-aarch64-linux-gnu/bin/aarch64-linux-gnu-
+export CROSS_COMPILE=/media/hdd/aayush/kernel/aarch64-linux-gnu/bin/aarch64-linux-gnu-
 
 # Toolchain Used: https://developer.arm.com/open-source/gnu-toolchain/gnu-a/downloads
 
