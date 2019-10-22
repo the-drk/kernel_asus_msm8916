@@ -10,7 +10,7 @@ nocol='\033[0m'
 
 # Kernel details
 KERNEL_NAME="FireKernel"
-VERSION="r3.1"
+VERSION="r3.2"
 DATE=$(date +"%d-%m-%Y-%I-%M")
 DEVICE="Z00L"
 FINAL_ZIP=$KERNEL_NAME-$VERSION-$DATE-$DEVICE.zip
@@ -25,7 +25,7 @@ UPLOAD_DIR=$BASE_DIR/$DEVICE
 
 # Export
 export ARCH=arm64
-export CROSS_COMPILE=/media/hdd/aayush/kernel/aarch64-linux-gnu/bin/aarch64-linux-gnu-
+export CROSS_COMPILE=/media/hdd/aayush/kernel/aarch64-elf-gcc/bin/aarch64-elf-
 
 # Toolchain Used: https://developer.arm.com/open-source/gnu-toolchain/gnu-a/downloads
 
